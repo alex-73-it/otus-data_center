@@ -10,6 +10,11 @@ feature interface-vlan
 
 vlan 1,11
 
+key chain ospf
+  key 0
+    key-string 7 0700325c48
+    cryptographic-algorithm HMAC-SHA-256
+
 interface Vlan11
   no shutdown
   ip address 10.13.11.1/24
@@ -21,14 +26,20 @@ interface Vlan11
 interface Ethernet1/1
   no switchport
   ip address 10.12.11.0/31
+  ip ospf authentication
+  ip ospf authentication key-chain ospf
   ip ospf network point-to-point
+  no ip ospf passive-interface
   ip router ospf 0 area 0.0.0.0
   no shutdown
 
 interface Ethernet1/2
   no switchport
   ip address 10.12.12.0/31
+  ip ospf authentication
+  ip ospf authentication key-chain ospf
   ip ospf network point-to-point
+  no ip ospf passive-interface
   ip router ospf 0 area 0.0.0.0
   no shutdown
 
@@ -54,6 +65,11 @@ feature interface-vlan
 
 vlan 1,22
 
+key chain ospf
+  key 0
+    key-string 7 0700325c48
+    cryptographic-algorithm HMAC-SHA-256
+
 interface Vlan22
   no shutdown
   ip address 10.13.22.1/24
@@ -65,14 +81,20 @@ interface Vlan22
 interface Ethernet1/1
   no switchport
   ip address 10.12.21.0/31
+  ip ospf authentication
+  ip ospf authentication key-chain ospf
   ip ospf network point-to-point
+  no ip ospf passive-interface
   ip router ospf 0 area 0.0.0.0
   no shutdown
 
 interface Ethernet1/2
   no switchport
   ip address 10.12.22.0/31
+  ip ospf authentication
+  ip ospf authentication key-chain ospf
   ip ospf network point-to-point
+  no ip ospf passive-interface
   ip router ospf 0 area 0.0.0.0
   no shutdown
 
@@ -98,6 +120,11 @@ feature interface-vlan
 
 vlan 1,33-34
 
+key chain ospf
+  key 0
+    key-string 7 0700325c48
+    cryptographic-algorithm HMAC-SHA-256
+
 interface Vlan33
   no shutdown
   ip address 10.13.33.1/24
@@ -117,14 +144,20 @@ interface Vlan34
 interface Ethernet1/1
   no switchport
   ip address 10.12.31.0/31
+  ip ospf authentication
+  ip ospf authentication key-chain ospf
   ip ospf network point-to-point
+  no ip ospf passive-interface
   ip router ospf 0 area 0.0.0.0
   no shutdown
 
 interface Ethernet1/2
   no switchport
   ip address 10.12.32.0/31
+  ip ospf authentication
+  ip ospf authentication key-chain ospf
   ip ospf network point-to-point
+  no ip ospf passive-interface
   ip router ospf 0 area 0.0.0.0
   no shutdown
 
@@ -150,9 +183,16 @@ router ospf 0
 ```
 feature ospf
 
+key chain ospf
+  key 0
+    key-string 7 0700325c48
+    cryptographic-algorithm HMAC-SHA-256
+
 interface Ethernet1/1
   no switchport
   ip address 10.12.11.1/31
+  ip ospf authentication
+  ip ospf authentication key-chain ospf
   ip ospf network point-to-point
   no ip ospf passive-interface
   ip router ospf 0 area 0.0.0.0
@@ -161,6 +201,8 @@ interface Ethernet1/1
 interface Ethernet1/2
   no switchport
   ip address 10.12.21.1/31
+  ip ospf authentication
+  ip ospf authentication key-chain ospf
   ip ospf network point-to-point
   no ip ospf passive-interface
   ip router ospf 0 area 0.0.0.0
@@ -169,6 +211,8 @@ interface Ethernet1/2
 interface Ethernet1/3
   no switchport
   ip address 10.12.31.1/31
+  ip ospf authentication
+  ip ospf authentication key-chain ospf
   ip ospf network point-to-point
   no ip ospf passive-interface
   ip router ospf 0 area 0.0.0.0
@@ -190,9 +234,16 @@ router ospf 0
 ```
 feature ospf
 
+key chain ospf
+  key 0
+    key-string 7 0700325c48
+    cryptographic-algorithm HMAC-SHA-256
+
 interface Ethernet1/1
   no switchport
   ip address 10.12.12.1/31
+  ip ospf authentication
+  ip ospf authentication key-chain ospf
   ip ospf network point-to-point
   no ip ospf passive-interface
   ip router ospf 0 area 0.0.0.0
@@ -201,6 +252,8 @@ interface Ethernet1/1
 interface Ethernet1/2
   no switchport
   ip address 10.12.22.1/31
+  ip ospf authentication
+  ip ospf authentication key-chain ospf
   ip ospf network point-to-point
   no ip ospf passive-interface
   ip router ospf 0 area 0.0.0.0
@@ -209,6 +262,8 @@ interface Ethernet1/2
 interface Ethernet1/3
   no switchport
   ip address 10.12.32.1/31
+  ip ospf authentication
+  ip ospf authentication key-chain ospf
   ip ospf network point-to-point
   no ip ospf passive-interface
   ip router ospf 0 area 0.0.0.0
