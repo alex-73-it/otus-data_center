@@ -26,7 +26,6 @@ interface Vlan11
 interface Ethernet1/1
   no switchport
   ip address 10.12.11.0/31
-  ip ospf authentication
   ip ospf authentication key-chain ospf
   ip ospf network point-to-point
   no ip ospf passive-interface
@@ -36,7 +35,6 @@ interface Ethernet1/1
 interface Ethernet1/2
   no switchport
   ip address 10.12.12.0/31
-  ip ospf authentication
   ip ospf authentication key-chain ospf
   ip ospf network point-to-point
   no ip ospf passive-interface
@@ -52,6 +50,8 @@ interface loopback0
 
 router ospf 0
   router-id 10.10.10.0
+  log-adjacency-changes
+  area 0.0.0.0 authentication message-digest
   passive-interface default
 ```
 </details> 
@@ -81,7 +81,6 @@ interface Vlan22
 interface Ethernet1/1
   no switchport
   ip address 10.12.21.0/31
-  ip ospf authentication
   ip ospf authentication key-chain ospf
   ip ospf network point-to-point
   no ip ospf passive-interface
@@ -91,7 +90,6 @@ interface Ethernet1/1
 interface Ethernet1/2
   no switchport
   ip address 10.12.22.0/31
-  ip ospf authentication
   ip ospf authentication key-chain ospf
   ip ospf network point-to-point
   no ip ospf passive-interface
@@ -107,6 +105,8 @@ interface loopback0
 
 router ospf 0
   router-id 10.10.20.0
+  log-adjacency-changes
+  area 0.0.0.0 authentication message-digest
   passive-interface default
 ```
 </details> 
@@ -144,7 +144,6 @@ interface Vlan34
 interface Ethernet1/1
   no switchport
   ip address 10.12.31.0/31
-  ip ospf authentication
   ip ospf authentication key-chain ospf
   ip ospf network point-to-point
   no ip ospf passive-interface
@@ -154,7 +153,6 @@ interface Ethernet1/1
 interface Ethernet1/2
   no switchport
   ip address 10.12.32.0/31
-  ip ospf authentication
   ip ospf authentication key-chain ospf
   ip ospf network point-to-point
   no ip ospf passive-interface
@@ -173,6 +171,8 @@ interface loopback0
 
 router ospf 0
   router-id 10.10.30.0
+  log-adjacency-changes
+  area 0.0.0.0 authentication message-digest
   passive-interface default
 ```
 </details> 
@@ -191,7 +191,6 @@ key chain ospf
 interface Ethernet1/1
   no switchport
   ip address 10.12.11.1/31
-  ip ospf authentication
   ip ospf authentication key-chain ospf
   ip ospf network point-to-point
   no ip ospf passive-interface
@@ -201,7 +200,6 @@ interface Ethernet1/1
 interface Ethernet1/2
   no switchport
   ip address 10.12.21.1/31
-  ip ospf authentication
   ip ospf authentication key-chain ospf
   ip ospf network point-to-point
   no ip ospf passive-interface
@@ -211,7 +209,6 @@ interface Ethernet1/2
 interface Ethernet1/3
   no switchport
   ip address 10.12.31.1/31
-  ip ospf authentication
   ip ospf authentication key-chain ospf
   ip ospf network point-to-point
   no ip ospf passive-interface
@@ -224,6 +221,8 @@ interface loopback0
 
 router ospf 0
   router-id 10.10.1.0
+  log-adjacency-changes
+  area 0.0.0.0 authentication message-digest
   passive-interface default
 ```
 </details>
@@ -242,7 +241,6 @@ key chain ospf
 interface Ethernet1/1
   no switchport
   ip address 10.12.12.1/31
-  ip ospf authentication
   ip ospf authentication key-chain ospf
   ip ospf network point-to-point
   no ip ospf passive-interface
@@ -252,7 +250,6 @@ interface Ethernet1/1
 interface Ethernet1/2
   no switchport
   ip address 10.12.22.1/31
-  ip ospf authentication
   ip ospf authentication key-chain ospf
   ip ospf network point-to-point
   no ip ospf passive-interface
@@ -262,7 +259,6 @@ interface Ethernet1/2
 interface Ethernet1/3
   no switchport
   ip address 10.12.32.1/31
-  ip ospf authentication
   ip ospf authentication key-chain ospf
   ip ospf network point-to-point
   no ip ospf passive-interface
@@ -275,6 +271,8 @@ interface loopback0
 
 router ospf 0
   router-id 10.10.2.0
+  log-adjacency-changes
+  area 0.0.0.0 authentication message-digest
   passive-interface default
 ```
 </details>
