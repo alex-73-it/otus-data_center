@@ -487,7 +487,7 @@ Type-6 encryption is  being used
 
 ```
 password - TCP MD5 Signature Option
-ao - TCP Authentication Option (набор олгаритмов на выбор)
+ao - TCP Authentication Option (набор алгоритмов на выбор)
 ao приоритетнее, чем password, когда введены обе команды, по понятным причинам 
 ```
 </details>
