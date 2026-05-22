@@ -396,7 +396,7 @@ pc_1>
 </details>
 
 <details>
-<summary> ping с loopback0 LEAF_1 до остальных LEAVES </summary>
+<summary> ping с loopback0 LEAF_1 до остальных loopbacks LEAVES </summary>
 
 ```
 Leaf_1# ping 10.10.1.0 source 10.10.10.0
@@ -445,4 +445,49 @@ PING 10.10.30.0 (10.10.30.0) from 10.10.10.0: 56 data bytes
 round-trip min/avg/max = 4.134/6.522/10.296 ms
 Leaf_1#
 ```
-</detsils>
+</details>
+
+# Заметки  
+<details>
+<summary> AES шифрование паролей в конфиге </summary>
+
+```
+Leaf_1(config)# feature password encryption aes
+
+Leaf_1# key config-key ascii bgpbgpbgpbgpbgpbgp
+
+Leaf_1# encryption re-encrypt obfuscated
+
+Leaf_1# show keystore
+Software Keystore
+Type: P - PAC, S - Secret
+Index           Type              Name
+---------------------------------------
+0               S                mkeyA
+
+Leaf_1# show encryption mkey info all
+Master-Key : 1
+-------------------------------- --------------------------------------------------
+    Type                        :       Running & Startup (Active)
+    Key-Hash(first 16 chars)    :       SHA512: QQ2rcICJtFMhDjT4
+    Protection-Type             :       Software
+    Length                      :       18
+    Last updated                :       2026-05-22 09:28:29  UTC
+-------------------------------- --------------------------------------------------
+
+Leaf_1# show encryption service status
+Encryption service enabled
+Master Encryption Key configured
+Type-6 encryption is  being used
+```
+</details>
+
+<details>
+<summary> защита BGP без сертификатов </summary>
+
+```
+password - TCP MD5 Signature Option
+ao - TCP Authentication Option (набор олгаритмов на выбор)
+ao приоритетнее, чем password, когда введены обе команды, по понятным причинам 
+```
+</details>
