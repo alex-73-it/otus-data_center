@@ -4,4 +4,4 @@
 4. [Построение Underlay сети (eBGP)](Lab_4)
 5. [VxLAN. L2 VNI](Lab_5)
 6. [VxLAN. L3 VNI](Lab_6)
-7. [vPC и Multihoming](Lab_7)
+7. [vPC Multihoming и EVPN Multihoming](Lab_7)
