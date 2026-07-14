@@ -654,7 +654,7 @@ ethanalyzer - снифер пакетов из командной строки n
 Пример: 
 ethanalyzer local interface inband display-filter "icmp" limit-captured-frames 0
 
-набор команд test 
+набор команд test и diagnostic 
 
 show fabric forwarding ip local-host-db vrf all
 
