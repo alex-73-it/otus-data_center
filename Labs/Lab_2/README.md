@@ -12,7 +12,7 @@ vlan 1,11
 
 key chain ospf
   key 0
-    key-string 7 0700325c48
+    key-string ospf
     cryptographic-algorithm HMAC-SHA-256
 
 interface Vlan11
@@ -67,7 +67,7 @@ vlan 1,22
 
 key chain ospf
   key 0
-    key-string 7 0700325c48
+    key-string ospf
     cryptographic-algorithm HMAC-SHA-256
 
 interface Vlan22
@@ -122,7 +122,7 @@ vlan 1,33-34
 
 key chain ospf
   key 0
-    key-string 7 0700325c48
+    key-string ospf
     cryptographic-algorithm HMAC-SHA-256
 
 interface Vlan33
@@ -185,7 +185,7 @@ feature ospf
 
 key chain ospf
   key 0
-    key-string 7 0700325c48
+    key-string ospf
     cryptographic-algorithm HMAC-SHA-256
 
 interface Ethernet1/1
@@ -235,7 +235,7 @@ feature ospf
 
 key chain ospf
   key 0
-    key-string 7 0700325c48
+    key-string ospf
     cryptographic-algorithm HMAC-SHA-256
 
 interface Ethernet1/1

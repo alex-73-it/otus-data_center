@@ -7,7 +7,7 @@
 ```
 key chain ospf
   key 0
-    key-string 7 0700325c48
+    key-string ospf
     cryptographic-algorithm HMAC-SHA-256
 
 feature isis
@@ -52,7 +52,7 @@ interface Ethernet1/2
 ```
 key chain ospf
   key 0
-    key-string 7 0700325c48
+    key-string ospf
     cryptographic-algorithm HMAC-SHA-256
 
 feature isis
@@ -97,7 +97,7 @@ interface Ethernet1/2
 ```
 key chain ospf
   key 0
-    key-string 7 0700325c48
+    key-string ospf
     cryptographic-algorithm HMAC-SHA-256
 
 feature isis
@@ -148,7 +148,7 @@ interface Ethernet1/2
 ```
 key chain ospf
   key 0
-    key-string 7 0700325c48
+    key-string ospf
     cryptographic-algorithm HMAC-SHA-256
 
 feature isis
@@ -194,7 +194,7 @@ interface Ethernet1/3
 ```
 key chain ospf
   key 0
-    key-string 7 0700325c48
+    key-string ospf
     cryptographic-algorithm HMAC-SHA-256
 
 feature isis

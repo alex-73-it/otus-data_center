@@ -9,7 +9,7 @@ key chain bgp tcp
   key 0
     send-id 0
     recv-id 0
-    key-string 6 JDYkUZE1jWKy8FMY4B+jk2hcDyS+ePC60LCN3/ecIHQLFgNZJNSRMJcaXSOomRHhPiDF2Gyj1qKvAA==
+    key-string bgp
     send-lifetime local 00:00:00 Jan 01 2026  infinite
     cryptographic-algorithm HMAC-SHA-256
 
@@ -43,7 +43,7 @@ key chain bgp tcp
   key 0
     send-id 0
     recv-id 0
-    key-string 6 JDYkfDvqbqQcb5S8AO4qwdFeSCQxcoDOfVOSqV0ExcsxkT93JLOzrrrCftyuEr4bx89g+hHQ32LMAA==
+    key-string bgp
     send-lifetime local 00:00:00 Jan 01 2026  infinite
     cryptographic-algorithm HMAC-SHA-256
 
@@ -78,7 +78,7 @@ key chain bgp tcp
   key 0
     send-id 0
     recv-id 0
-    key-string 6 JDYkY6o0eGxYwx9zW+hRMvZOxSQG8ovFfKuW5BNzcvq86ZXzJNR6uQSVNhTUhGmTITs+JtGcClo9AA==
+    key-string bgp
     send-lifetime local 00:00:00 Jan 01 2026  infinite
     cryptographic-algorithm HMAC-SHA-256
 
@@ -113,7 +113,7 @@ key chain bgp tcp
   key 0
     send-id 0
     recv-id 0
-    key-string 7 070d265c
+    key-string bgp
     send-lifetime local 00:00:00 Jan 01 2026  infinite
     cryptographic-algorithm HMAC-SHA-256
 
@@ -145,7 +145,7 @@ key chain bgp tcp
   key 0
     send-id 0
     recv-id 0
-    key-string 6 JDYkAb4tdsF6ksMsngRlPOKY0yQ7AAsSyboQiKZqQfg5RJk5JPhACUrWYBqZDJfHURu+EiI4L6PRAA==
+    key-string bgp
     send-lifetime local 00:00:00 Jan 01 2026  infinite
     cryptographic-algorithm HMAC-SHA-256
 
