@@ -11,6 +11,7 @@ vlan 200
 
 interface Loopback200
  ip address 200.200.200.0 255.255.255.255
+ ip ospf network point-to-point
  ip ospf 1 area 0
 
 interface Vlan200
@@ -50,12 +51,14 @@ interface port-channel56
   spanning-tree port type network
   vpc peer-link
 
+route-map permit-bgp-ospf permit 10
 route-map permit-ospf-bgp permit 10
 
 router ospf OSPF_EXT_CONNECT
   log-adjacency-changes
   vrf l3vni
     router-id 10.13.200.1
+    redistribute bgp 65011 route-map permit-bgp-ospf
     log-adjacency-changes
 
 router bgp 65011
@@ -92,12 +95,14 @@ interface port-channel56
   spanning-tree port type network
   vpc peer-link
 
+route-map permit-bgp-ospf permit 10
 route-map permit-ospf-bgp permit 10
 
 router ospf OSPF_EXT_CONNECT
   log-adjacency-changes
   vrf l3vni
     router-id 10.13.200.2
+    redistribute bgp 65011 route-map permit-bgp-ospf
     log-adjacency-changes
 
 router bgp 65011
@@ -276,6 +281,38 @@ Multipath: eBGP
   Path-id 1 not advertised to any peer
 
 Leaf_4#
+```
+</details>
+
+<details> 
+<summary> Host_1 </summary>
+
+```
+Host_1#sho ip os ne
+
+Neighbor ID     Pri   State           Dead Time   Address         Interface
+10.13.200.1       1   FULL/DR         00:00:33    10.13.200.1     Vlan200
+10.13.200.2       1   FULL/BDR        00:00:37    10.13.200.2     Vlan200
+
+Host_1#sho ip route ospf
+Codes: L - local, C - connected, S - static, R - RIP, M - mobile, B - BGP
+       D - EIGRP, EX - EIGRP external, O - OSPF, IA - OSPF inter area
+       N1 - OSPF NSSA external type 1, N2 - OSPF NSSA external type 2
+       E1 - OSPF external type 1, E2 - OSPF external type 2
+       i - IS-IS, su - IS-IS summary, L1 - IS-IS level-1, L2 - IS-IS level-2
+       ia - IS-IS inter area, * - candidate default, U - per-user static route
+       o - ODR, P - periodic downloaded static route, H - NHRP, l - LISP
+       a - application route
+       + - replicated route, % - next hop override, p - overrides from PfR
+
+Gateway of last resort is 10.13.11.1 to network 0.0.0.0
+
+      10.0.0.0/8 is variably subnetted, 6 subnets, 2 masks
+O E2     10.13.11.4/32 [110/1] via 10.13.200.2, 00:06:02, Vlan200
+                       [110/1] via 10.13.200.1, 00:08:07, Vlan200
+O E2     10.13.22.2/32 [110/1] via 10.13.200.2, 00:06:02, Vlan200
+                       [110/1] via 10.13.200.1, 00:08:07, Vlan200
+Host_1#
 ```
 </details>
 
