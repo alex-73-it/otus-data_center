@@ -630,6 +630,8 @@ Host_1#
 <summary> Ресурсы </summary>
 vPC Multi-Homing 
 
+https://www.cisco.com/c/dam/en/us/td/docs/switches/datacenter/sw/design/vpc_design/vpc_best_practices_design_guide.pdf
+
 https://www.ciscolive.com/c/dam/r/ciscolive/global-event/docs/2025/pdf/BRKDCN-2912.pdf
 
 https://www.cisco.com/c/en/us/support/docs/switches/nexus-9000-series-switches/218333-understand-and-configure-nexus-9000-vpc.html#toc-hId-1202017133
