@@ -1,0 +1,423 @@
+
+
+!Command: show running-config
+!Running configuration last done at: Thu Aug  6 11:19:03 2026
+!Time: Thu Aug  6 11:19:03 2026
+
+version 10.6(2) Bios:version  
+hostname Leaf_1
+vdc Leaf_1 id 1
+  limit-resource vlan minimum 16 maximum 4094
+  limit-resource vrf minimum 2 maximum 4096
+  limit-resource port-channel minimum 0 maximum 511
+  limit-resource m4route-mem minimum 58 maximum 58
+  limit-resource m6route-mem minimum 8 maximum 8
+
+cfs eth distribute
+nv overlay evpn
+feature ospf
+feature bgp
+feature fabric forwarding
+feature interface-vlan
+feature vn-segment-vlan-based
+feature lacp
+feature vpc
+feature nv overlay
+
+no password strength-check
+username admin password 5 $5$COPHLP$IZ4ERHbUOUOUdVF0UrIbQiFMahSiXHEUXDngF7fsxA2  role network-admin
+ip domain-lookup
+feature password encryption aes
+copp profile strict
+hardware access-list tcam region racl 512
+hardware access-list tcam region arp-ether 256 double-wide
+snmp-server user admin network-admin auth md5 364A05F1A7AA917153E47E70B9DD70868C83 priv aes-128 481A56BEA5BC977547B87A2DB3D0599F96DE localizedV2key
+rmon event 1 log trap public description FATAL(1) owner PMON@FATAL
+rmon event 2 log trap public description CRITICAL(2) owner PMON@CRITICAL
+rmon event 3 log trap public description ERROR(3) owner PMON@ERROR
+rmon event 4 log trap public description WARNING(4) owner PMON@WARNING
+rmon event 5 log trap public description INFORMATION(5) owner PMON@INFO
+
+fabric forwarding anycast-gateway-mac 0000.0000.0001
+vlan 1,11,50,100,110,200,210
+vlan 11
+  vn-segment 10011
+vlan 50
+  name INFRA-VLAN
+vlan 100
+  name l3evpn
+  vn-segment 10100
+vlan 110
+  name tenant-1
+  vn-segment 10110
+vlan 200
+  name VL_EXT_CONNECT
+vlan 210
+  name EXT_CONN_TEN-1
+
+spanning-tree vlan 1-3967 priority 0
+route-map permit-bgp-ospf permit 10
+route-map permit-ospf-bgp permit 10
+key chain bgp tcp
+  key 0
+    send-id 0
+    recv-id 0
+    key-string 6 JDYkUZE1jWKy8FMY4B+jk2hcDyS+ePC60LCN3/ecIHQLFgNZJNSRMJcaXSOomRHhPiDF2Gyj1qKvAA==
+    send-lifetime local 00:00:00 Jan 01 2026  infinite
+    cryptographic-algorithm HMAC-SHA-256
+key chain ospf
+  key 0
+    key-string 7 0700325c48
+    cryptographic-algorithm HMAC-SHA-256
+vrf context keepalive
+vrf context l3vni
+  vni 10100
+  rd auto
+  address-family ipv4 unicast
+    route-target both auto
+    route-target both auto evpn
+vrf context management
+vrf context tenant-1
+  vni 10110
+  rd auto
+  address-family ipv4 unicast
+    route-target both auto
+    route-target both auto evpn
+system nve infra-vlans 50
+vpc domain 1
+  peer-switch
+  role priority 15
+  peer-keepalive destination 192.168.0.1 source 192.168.0.0 vrf keepalive
+  delay restore 120
+  peer-gateway
+  layer3 peer-router
+  auto-recovery
+  delay restore interface-vlan 40
+  delay restore orphan-port 120
+  ip arp synchronize
+
+
+interface Vlan1
+  no ip redirects
+  no ipv6 redirects
+
+interface Vlan11
+  no shutdown
+  vrf member l3vni
+  no ip redirects
+  ip address 10.13.11.1/24
+  no ipv6 redirects
+  fabric forwarding mode anycast-gateway
+
+interface Vlan50
+  no shutdown
+  no ip redirects
+  ip address 192.168.1.0/31
+  no ipv6 redirects
+  ip ospf authentication key-chain ospf
+  ip ospf network point-to-point
+  no ip ospf passive-interface
+  ip router ospf 0 area 0.0.0.0
+
+interface Vlan100
+  no shutdown
+  vrf member l3vni
+  no ip redirects
+  ip forward
+  no ipv6 redirects
+
+interface Vlan110
+  no shutdown
+  vrf member tenant-1
+  no ip redirects
+  ip forward
+  no ipv6 redirects
+
+interface Vlan200
+  description INT_EXT_CONNECT
+  no shutdown
+  vrf member l3vni
+  no ip redirects
+  ip address 10.13.200.1/24
+  no ipv6 redirects
+  ip router ospf OSPF_EXT_CONNECT area 0.0.0.0
+
+interface Vlan210
+  description EXT_CONN_TEN-1
+  no shutdown
+  vrf member tenant-1
+  no ip redirects
+  ip address 10.13.210.1/24
+  no ipv6 redirects
+  ip router ospf EXT_CONN_TEN-1 area 0.0.0.0
+
+interface port-channel13
+  description to_Host1
+  switchport mode trunk
+  switchport trunk allowed vlan 11
+  vpc 13
+
+interface port-channel17
+  description to_Host0
+  switchport mode trunk
+  switchport trunk allowed vlan 200,210
+  vpc 17
+
+interface port-channel56
+  description vPC_PEER_LINKS
+  switchport mode trunk
+  switchport trunk allowed vlan 11,50,100,110,200,210
+  spanning-tree port type network
+  vpc peer-link
+
+interface nve1
+  no shutdown
+  host-reachability protocol bgp
+  advertise virtual-rmac
+  source-interface loopback1
+  global suppress-arp
+  global ingress-replication protocol bgp
+  source-interface hold-down-time 150
+  member vni 10011
+  member vni 10100 associate-vrf
+  member vni 10110 associate-vrf
+
+interface Ethernet1/1
+  no switchport
+  ip address 10.12.11.0/31
+  ip ospf authentication key-chain ospf
+  ip ospf network point-to-point
+  no ip ospf passive-interface
+  ip router ospf 0 area 0.0.0.0
+  no shutdown
+
+interface Ethernet1/2
+  no switchport
+  ip address 10.12.12.0/31
+  ip ospf authentication key-chain ospf
+  ip ospf network point-to-point
+  no ip ospf passive-interface
+  ip router ospf 0 area 0.0.0.0
+  no shutdown
+
+interface Ethernet1/3
+  description to_Host1
+  switchport mode trunk
+  switchport trunk allowed vlan 11
+  channel-group 13 mode active
+
+interface Ethernet1/4
+  no switchport
+  vrf member keepalive
+  ip address 192.168.0.0/31
+  no shutdown
+
+interface Ethernet1/5
+  description vPC_PEER_LINKS
+  switchport mode trunk
+  switchport trunk allowed vlan 11,50,100,110,200,210
+  channel-group 56 mode active
+
+interface Ethernet1/6
+  description vPC_PEER_LINKS
+  switchport mode trunk
+  switchport trunk allowed vlan 11,50,100,110,200,210
+  channel-group 56 mode active
+
+interface Ethernet1/7
+  description to_Host0
+  switchport mode trunk
+  switchport trunk allowed vlan 200,210
+  channel-group 17 mode active
+
+interface Ethernet1/8
+
+interface Ethernet1/9
+
+interface Ethernet1/10
+
+interface Ethernet1/11
+
+interface Ethernet1/12
+
+interface Ethernet1/13
+
+interface Ethernet1/14
+
+interface Ethernet1/15
+
+interface Ethernet1/16
+
+interface Ethernet1/17
+
+interface Ethernet1/18
+
+interface Ethernet1/19
+
+interface Ethernet1/20
+
+interface Ethernet1/21
+
+interface Ethernet1/22
+
+interface Ethernet1/23
+
+interface Ethernet1/24
+
+interface Ethernet1/25
+
+interface Ethernet1/26
+
+interface Ethernet1/27
+
+interface Ethernet1/28
+
+interface Ethernet1/29
+
+interface Ethernet1/30
+
+interface Ethernet1/31
+
+interface Ethernet1/32
+
+interface Ethernet1/33
+
+interface Ethernet1/34
+
+interface Ethernet1/35
+
+interface Ethernet1/36
+
+interface Ethernet1/37
+
+interface Ethernet1/38
+
+interface Ethernet1/39
+
+interface Ethernet1/40
+
+interface Ethernet1/41
+
+interface Ethernet1/42
+
+interface Ethernet1/43
+
+interface Ethernet1/44
+
+interface Ethernet1/45
+
+interface Ethernet1/46
+
+interface Ethernet1/47
+
+interface Ethernet1/48
+
+interface Ethernet1/49
+
+interface Ethernet1/50
+
+interface Ethernet1/51
+
+interface Ethernet1/52
+
+interface Ethernet1/53
+
+interface Ethernet1/54
+
+interface Ethernet1/55
+
+interface Ethernet1/56
+
+interface Ethernet1/57
+
+interface Ethernet1/58
+
+interface Ethernet1/59
+
+interface Ethernet1/60
+
+interface Ethernet1/61
+
+interface Ethernet1/62
+
+interface Ethernet1/63
+
+interface Ethernet1/64
+
+interface mgmt0
+  vrf member management
+
+interface loopback0
+  ip address 10.10.10.0/32
+  ip router ospf 0 area 0.0.0.0
+
+interface loopback1
+  ip address 10.11.10.0/32
+  ip address 10.11.10.1/32 secondary
+  ip router ospf 0 area 0.0.0.0
+icam monitor scale
+
+cli alias name wr copy run start 
+line console
+  exec-timeout 525600
+  terminal width  511
+line vty
+boot nxos bootflash:/nxos64-cs.10.6.2.F.bin 
+router ospf 0
+  router-id 10.10.10.0
+  log-adjacency-changes
+  area 0.0.0.0 authentication message-digest
+  passive-interface default
+router ospf EXT_CONN_TEN-1
+  log-adjacency-changes
+  vrf tenant-1
+    router-id 10.13.210.1
+    redistribute bgp 65011 route-map permit-bgp-ospf
+    log-adjacency-changes
+router ospf OSPF_EXT_CONNECT
+  log-adjacency-changes
+  vrf l3vni
+    router-id 10.13.200.1
+    redistribute direct route-map permit-bgp-ospf
+    redistribute bgp 65011 route-map permit-bgp-ospf
+    log-adjacency-changes
+router bgp 65011
+  router-id 10.10.10.0
+  timers bgp 3 9
+  bestpath as-path multipath-relax
+  reconnect-interval 10
+  log-neighbor-changes
+  address-family l2vpn evpn
+    maximum-paths 2
+    advertise-pip
+  template peer TEMPL_EVPN_SPINES
+    remote-as 65000
+    ao bgp
+    update-source loopback0
+    disable-connected-check
+    timers 3 9
+    address-family l2vpn evpn
+      send-community
+      send-community extended
+      rewrite-evpn-rt-asn
+  neighbor 10.10.1.0
+    inherit peer TEMPL_EVPN_SPINES
+  neighbor 10.10.2.0
+    inherit peer TEMPL_EVPN_SPINES
+  vrf l3vni
+    address-family ipv4 unicast
+      redistribute ospf OSPF_EXT_CONNECT route-map permit-ospf-bgp
+  vrf tenant-1
+    address-family ipv4 unicast
+      redistribute ospf EXT_CONN_TEN-1 route-map permit-ospf-bgp
+evpn
+  vni 10011 l2
+    rd auto
+    route-target import auto
+    route-target export auto
+
+
+!
+
+
+!end
