@@ -6,3 +6,4 @@
 6. [VxLAN. L3 VNI](Lab_6)
 7. [vPC Multihoming и EVPN Multihoming](Lab_7)
 8. [EVPN route-type 5](Lab_8)
+9. [Project](Project)
